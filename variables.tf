@@ -68,14 +68,14 @@ variable "mainurl_include" {
 }
 variable "mainurl" {
   default = "mustbereplaced34trfesdadg.com"
-  description "Main URL for this service"
+  description = "Main URL for this service"
 }
 variable "mainurl_majorversion" {
-  description "Which major version should the main url point to"
+  description = "Which major version should the main url point to"
   default = "0"
 }
 variable "mainurl_destpath" {
-  description "Path that main url should point to"
+  description = "Path that main url should point to"
   default = "/public/web/frontend/"
 }
 
