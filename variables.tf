@@ -63,7 +63,7 @@ variable "private_allow_tenant_role_whitelist" {
 # *********************************
 
 variable "mainurl_include" {
-  description "Should a route to the main url be included"
+  description = "Should a route to the main url be included"
   default = false
 }
 variable "mainurl" {
