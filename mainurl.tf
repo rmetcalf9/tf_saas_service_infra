@@ -5,8 +5,9 @@ resource "kong_service" "mainurl_service" {
 
 	name     	= format("TF_%s_MAINURL", var.ws_name)
 	protocol 	= "http"
-	host     	= format("TF_%s_%s", var.ws_name, var.mainurl_majorversion)
+	# host     	= format("TF_%s_%s", var.ws_name, var.mainurl_majorversion)
   # host     	= kong_upstream.upstream[count.index].name
+  host      = module.saas_infra[var.mainurl_majorversion].upstream.name
 	port     	= 80
 	path     	= var.mainurl_destpath
 	retries  	= 5
