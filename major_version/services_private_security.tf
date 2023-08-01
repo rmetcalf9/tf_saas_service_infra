@@ -67,7 +67,7 @@ resource "kong_plugin" "service_private_acl" {
   service_id = kong_service.service_private[0].id
 	config_json = <<EOT
 	{
-		"whitelist": [ "saas_user_management" ]
+		"allow": [ "saas_user_management" ]
 	}
 EOT
 }
