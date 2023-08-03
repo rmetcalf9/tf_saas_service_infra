@@ -58,6 +58,18 @@ variable "private_allow_tenant_role_whitelist" {
   default = []
 }
 
+variable "tenant_path_position_main_private" {
+  description = "The position in the url that the tenant appears for securing the main endpoint"
+  type = number
+  default = 7
+}
+
+variable "tenant_path_position_test_private" {
+  description = "The position in the url that the tenant appears for securing the main endpoint"
+  type = number
+  default = 7
+}
+
 # *********************************
 # mainurl control Parameters
 # *********************************
@@ -78,4 +90,3 @@ variable "mainurl_destpath" {
   description = "Path that main url should point to"
   default = "/public/web/frontend/"
 }
-
