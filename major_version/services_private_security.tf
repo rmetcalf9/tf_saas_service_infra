@@ -4,7 +4,7 @@ resource "kong_plugin" "service_test_private_acl" {
 	count = (var.include_test_private && var.secure_test_private) ? 1 : 0
 
 	name        = "acl"
-  service_id = kong_service.service_test_private[0].id
+	route_id    = kong_route.route_test_private[0].id
 	config_json = <<EOT
 	{
 		"allow": [ "saas_user_management" ]
@@ -16,7 +16,7 @@ resource "kong_plugin" "service_test_private_jwt" {
 	count = (var.include_test_private && var.secure_test_private && (length(var.private_allow_tenant_role_whitelist) == 0)) ? 1 : 0
 
 	name        = "jwt"
-  service_id = kong_service.service_test_private[0].id
+	route_id    = kong_route.route_test_private[0].id
 	config_json = <<EOT
 	{
     "secret_is_base64": true,
@@ -39,7 +39,7 @@ resource "kong_plugin" "service_test_private_saas_jwt" {
 	count = (var.include_test_private && var.secure_test_private && (length(var.private_allow_tenant_role_whitelist) != 0)) ? 1 : 0
 
 	name        = "saas-user-management-jwt-role-check"
-  service_id = kong_service.service_test_private[0].id
+	route_id    = kong_route.route_test_private[0].id
 	config_json = <<EOT
 	{
     "secret_is_base64": true,
@@ -64,7 +64,8 @@ resource "kong_plugin" "service_private_acl" {
 	count = (var.include_main_private && var.secure_main_private) ? 1 : 0
 
 	name        = "acl"
-  service_id = kong_service.service_private[0].id
+	route_id    = kong_route.route_private[0].id
+
 	config_json = <<EOT
 	{
 		"allow": [ "saas_user_management" ]
@@ -76,7 +77,7 @@ resource "kong_plugin" "service_private_jwt" {
 	count = (var.include_main_private && var.secure_main_private && (length(var.private_allow_tenant_role_whitelist) == 0)) ? 1 : 0
 
 	name        = "jwt"
-  service_id = kong_service.service_private[0].id
+	route_id    = kong_route.route_private[0].id
 	config_json = <<EOT
 	{
 		"secret_is_base64": true,
@@ -99,7 +100,7 @@ resource "kong_plugin" "service_private_saas_jwt" {
 	count = (var.include_main_private && var.secure_main_private && (length(var.private_allow_tenant_role_whitelist) != 0)) ? 1 : 0
 
 	name        = "saas-user-management-jwt-role-check"
-  service_id = kong_service.service_private[0].id
+	route_id    = kong_route.route_private[0].id
 	config_json = <<EOT
 	{
 		"secret_is_base64": true,

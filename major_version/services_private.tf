@@ -13,6 +13,19 @@ resource "kong_service" "service_test_private" {
 	read_timeout  	= 60000
 }
 
+resource "kong_route" "route_test_private_options" {
+	count = var.include_test_private ? 1 : 0
+
+	protocols 	    = [ "https" ]
+	hosts 		    = [ format("api.metcarob.com") ]
+	paths 		    = [ format("/%s/test/v%s/private", var.ws_name, var.major_version) ]
+	methods         = [ "OPTIONS" ]
+	strip_path 	    = true
+	preserve_host 	= false
+	regex_priority 	= 10
+	service_id 	    = kong_service.service_test_private[count.index].id
+}
+
 resource "kong_route" "route_test_private" {
 	count = var.include_test_private ? 1 : 0
 
@@ -37,6 +50,19 @@ resource "kong_service" "service_private" {
 	connect_timeout = 60000
 	write_timeout 	= 60000
 	read_timeout  	= 60000
+}
+
+resource "kong_route" "route_private_options" {
+	count = var.include_main_private ? 1 : 0
+
+	protocols 	    = [ "https" ]
+	hosts 		    = [ format("api.metcarob.com") ]
+	paths 		    = [ format("/%s/v%s/private", var.ws_name, var.major_version) ]
+	methods         = [ "OPTIONS" ]
+	strip_path 	    = true
+	preserve_host 	= false
+	regex_priority 	= 10
+	service_id 	    = kong_service.service_private[count.index].id
 }
 
 resource "kong_route" "route_private" {
